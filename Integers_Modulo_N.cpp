@@ -11,8 +11,13 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    int n = atoi(argv[1]);
-    string textN(argv[1]);
+    string textN;
+    int n;
+    
+    printf("Enter an integer modulus:");
+
+    cin >> textN;
+    n = stoi(textN);
 
     int cellSize = textN.length() + 1;
 
