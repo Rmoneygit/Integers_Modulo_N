@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <iostream>
+#include <iomanip>
 #include <string>
 
 using namespace std;
@@ -11,6 +12,9 @@ using namespace std;
 int main(int argc, char** argv)
 {
     int n = atoi(argv[1]);
+    string textN(argv[1]);
+
+    int cellSize = textN.length() + 1;
 
     cout << R"(
     \\\\\\\\\\\\\\\\
@@ -23,31 +27,48 @@ int main(int argc, char** argv)
      \\\
     \\\\\\\\\\\\\\\\ 
 )" << "                     " << argv[1] << endl << endl;
-    string topLine = " + |";
-    string seperatingLine = "----";
+    
+    // Create the top row of the table, looking something like this:
+    //    *|   0|   1|   2|   3|   4|   5|   6|   7|   8|   9|  10|  11|
+    // -----------------------------------------------------------------
+    
+    // Top left cell just contains the multiplcation symbol.
+    cout << setfill(' ');
+    cout << right << setw(cellSize) << "*" << "|";
+
+    // Print a cell for each element of Z_n.
     for (int i = 0; i < n; i++)
     {
-        topLine.append(" " + to_string(i));
-        topLine.append(" |");
-        seperatingLine.append("----");
+        cout << right << setw(cellSize) << i << "|";
     }
+    cout << endl;
 
-    cout << topLine << endl;
-    cout << seperatingLine << endl;
+    // Print a dividing line. Iterate n + 1 times to account for the mult. symbol cell
+    cout << setfill('-');
+    for (int i = 0; i < n + 1; i++)
+    {
+        // Add one dash to account for the | pipe symbol dividing each cell.
+        cout << right << setw(cellSize + 1) << "";
+    }
+    cout << endl;
 
+    cout << setfill(' ');
+
+    // Now create each row of the n rows in the multiplication table.
     for (int i = 0; i < n; i++)
     {
-        string nextLine = " ";
-        nextLine.append(to_string(i));
-        nextLine.append(" | ");
+        // Row in the table for the number n
+        cout << right << setw(cellSize) << i << "|";
 
+        // Compute the product for each cell and print.
         for (int j = 0; j < n; j++)
         {
             int entry = (i * j) % n;
-            nextLine.append(to_string(entry));
-            nextLine.append(" | ");
+
+            cout << right << setw(cellSize) << entry << "|";
         }
-        cout << nextLine << endl;
+
+        cout << endl;
     }
     
 
