@@ -115,7 +115,15 @@ int main(int argc, char** argv)
         {
             int entry = (i * j) % n;
 
-            cout << right << setw(cellSize) << entry << "|";
+            // Highlight idempotents
+            if (i == j && i == entry)
+            {
+                cout << "\033[1;31m" << right << setw(cellSize) << entry << "\033[0m" << "|";
+            }
+            else
+            {
+                cout << right << setw(cellSize) << entry << "|";
+            }
         }
 
         cout << endl;
